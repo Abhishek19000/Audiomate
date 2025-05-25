@@ -1,5 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import { connectDB } from './lib/db.js';
 import userRoutes from "./routes/user.route.js";
 import adminRoutes from "./routes/admin.route.js";
 import authRoutes from "./routes/auth.route.js";
@@ -33,4 +34,5 @@ app.post("/",(req,res)=>{
 
 app.listen(port,()=>{
     console.log("Server running "+ process.env.PORT);
+    connectDB();
 });
