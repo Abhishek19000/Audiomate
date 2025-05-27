@@ -2,7 +2,7 @@ import { Router } from "express";
 
 const router= Router();
 
-router.get("/",(req,res)=>
+router.get("/like",(req,res)=>
 {
     res.send("User with the get method")
 })
