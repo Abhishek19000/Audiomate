@@ -3,6 +3,7 @@ import { createSong } from "../controllers/admin.controller.js";
 import { deleteSong } from "../controllers/admin.controller.js";
 import { createAlbum } from "../controllers/admin.controller.js";
 import { deleteAlbum } from "../controllers/admin.controller.js";
+import { checkAdmin } from "../controllers/admin.controller.js";
 import { protectRoute, requireAdmin } from "../middleware/auth.middleware.js";
 
 const router=Router();
