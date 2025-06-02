@@ -7,9 +7,13 @@ import { useNavigate } from "react-router-dom"
 
 
 const AuthCallbackPage = () => {
+
   const {isLoaded,user}=useUser();
-  const navigate=useNavigate();
+
+  const navigate = useNavigate();
+
   useEffect(()=>{
+
     const syncUser= async ()=>{
       try {
         if(!isLoaded || !user) return;
@@ -29,6 +33,7 @@ const AuthCallbackPage = () => {
     }
     syncUser()
   },[isLoaded,user,navigate]);
+
   return (
     <div className="h-screen w-full bg-black flex items-center justify-center">
       <Card className="w-[90%] max-w-md bg-zinc-900 border-l-zinc-900">
