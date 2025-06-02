@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import {clerkMiddleware} from '@clerk/express';
 import fileUpload from "express-fileupload";
 import path from "path";
+import cors from "cors";
 import { connectDB } from './lib/db.js';
 import userRoutes from "./routes/user.route.js";
 import adminRoutes from "./routes/admin.route.js";
@@ -14,12 +15,22 @@ import statRoutes from "./routes/stat.route.js";
 
 dotenv.config();
 
+
 const app= express();
-
 const __dirname=path.resolve();
+const port=process.env.PORT;
 
-app.use(express.json());
-app.use(clerkMiddleware()); //this will add auth to req object =>req.auth
+
+
+
+app.use(
+    cors({
+        origin: "http://localhost:3000",
+        credentials: true,
+    })
+);
+app.use(express.json()); // to parse req.body
+app.use(clerkMiddleware()); // this will add auth to req obj => req.auth
 app.use(fileUpload({
     useTempFiles: true,
     tempFileDir: path.join(__dirname, "tmp"),
@@ -29,7 +40,7 @@ app.use(fileUpload({
     }
 }))
 
-const port=process.env.PORT;
+
 
 app.use("/api/v1/users",userRoutes);
 app.use("/api/v1/admin",adminRoutes);
