@@ -2,7 +2,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { axiosInstance } from "@/lib/axios"
 import { useUser } from "@clerk/clerk-react"
 import { Loader } from "lucide-react"
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 
 
@@ -12,11 +12,17 @@ const AuthCallbackPage = () => {
 
   const navigate = useNavigate();
 
+  const syncAttempted=useRef(false);
+
+
   useEffect(()=>{
+
+    if(!isLoaded || !user || syncAttempted.current) return;
 
     const syncUser= async ()=>{
       try {
-        if(!isLoaded || !user) return;
+        
+        syncAttempted.current=true;
 
         await axiosInstance.post("/auth/callback",{
           id:user.id,
